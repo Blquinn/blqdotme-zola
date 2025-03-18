@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <url>
+        <loc>https://blq.me/</loc>
+    </url>
+    <url>
+        <loc>https://blq.me/blog/</loc>
+    </url>
+    <url>
+        <loc>https://blq.me/blog/steganography-puzzle/</loc>
+        <lastmod>2025-03-16T00:00:00Z</lastmod>
+    </url>
+    <url>
+        <loc>https://blq.me/categories/</loc>
+    </url>
+    <url>
+        <loc>https://blq.me/categories/steganography/</loc>
+    </url>
+    <url>
+        <loc>https://blq.me/tags/</loc>
+    </url>
+    <url>
+        <loc>https://blq.me/tags/puzzle/</loc>
+    </url>
+    <url>
+        <loc>https://blq.me/tags/steganography/</loc>
+    </url>
+</urlset>

@@ -19,11 +19,17 @@ extra:
     - /plain_text_reader.css
 ---
 
-This is some content.
+I was inspired to create this puzzle based on something I saw on reddit recently.
+
+There is a hidden message encoded in the following body of text.
+
+Can you figure out what it is?
 
 {{ plain_text_reader(path="/content/whither.txt", file_name="whither.txt") }}
 
 ---
+
+### Hints
 
 {% revealer(label="Hint 1") %}
 This is some hint content.

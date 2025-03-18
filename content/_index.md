@@ -1,8 +1,9 @@
 ---
 ---
 
-- info
-    - i'm ben
+hi, i'm ben
+
+- links
     - [here's my github](https://github.com/blquinn)
 - [the blog](./blog)
 - curated posts
