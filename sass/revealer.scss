@@ -1,0 +1,44 @@
+.revealer {
+  width: 100%;
+  border: 1px solid black;
+  // border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+
+  .revealer-button {
+    align-self: stretch;
+    display: flex;
+    flex-direction: row;
+    gap: 0.5em;
+    align-items: start;
+  }
+
+  button {
+    align-self: flex-start;
+    background: none;
+    color: inherit;
+    border: none;
+    padding: 4px;
+    font: inherit;
+    cursor: pointer;
+    outline: inherit;
+  }
+
+  .revealer-content {
+    max-height: 0;
+    overflow-y: hidden;
+  }
+
+  &.open {
+    button {
+      .icon {
+        transform: rotate(90deg);
+      }
+    }
+
+    .revealer-content {
+      max-height: 100em;
+      margin: 0 1em 0 1em;
+    }
+  }
+}
