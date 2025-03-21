@@ -178,7 +178,7 @@ python3 decode.py | hexdump -C
 000000d1
 ```
 
-There you can clearly see the secreet message.
+There you can clearly see the secret message.
 
 The first two bytes are a unsigned 16 bit integer which represents
 the message length. Using that you can extract the exact message.
