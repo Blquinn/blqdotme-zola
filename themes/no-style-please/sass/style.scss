@@ -81,8 +81,9 @@ pre code {
 
 blockquote {
   font-style: italic;
-  border: thin solid black;
+  border-left: thick solid black;
   padding: 1rem;
+  margin: 1rem .5rem 1rem .5rem;
 
   p { margin: 0; }
 }

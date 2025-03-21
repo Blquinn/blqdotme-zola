@@ -15,7 +15,6 @@ taxonomies = [
 highlight_code = true
 
 [extra]
-author = "Ahmed Alaa"
 logo = "images/logo.png"
 header_nav = [
     { name = "~home", url = "/no-style-please/" },

@@ -3,5 +3,5 @@
     <span class="icon">&#9654;</span>
     <span>{{ label }}</span>
   </button>
-  <div class="revealer-content">{{ body }}</div>
+  <div class="revealer-content">{{ body | markdown | safe }}</div>
 </div>
