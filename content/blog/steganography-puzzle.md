@@ -63,7 +63,7 @@ sequence of bits.
 
 ### Solution
 
-{% revealer(label="Show solution", open=true) %}
+{% revealer(label="Show solution") %}
 
 The basic premise of this encoding is that by swapping unicode
 "homoglpyhs", which are unicode code points which look like
