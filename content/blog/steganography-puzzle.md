@@ -28,14 +28,11 @@ Decoding it will require some CS and programming knowledge.
 
 __Can you decode the hidden message?__
 
-I haven't actually read this book so don't be mad at me
-if there's something politically incorrect in it or something.
-
 ---
 
 ## The Text
 
-{{ plain_text_reader(path="/content/whither.txt", file_name="whither.txt") }}
+{{ plain_text_reader(path="/content/lorem.txt", file_name="lorem.txt") }}
 
 ---
 
@@ -66,7 +63,7 @@ sequence of bits.
 
 ### Solution
 
-{% revealer(label="Show solution") %}
+{% revealer(label="Show solution", open=true) %}
 
 The basic premise of this encoding is that by swapping unicode
 "homoglpyhs", which are unicode code points which look like
@@ -91,7 +88,7 @@ def find_unicode_glyphs(file_path: str):
 For this file, this will print out
 
 ```py
-{'\ufeff', 'а', 'ԁ', '”', '•', 'у', 'о', 'ν', 'υ', 'æ', 'ј', 'р', '™', '‘', 'і', 'е', '—', '’', 'с', 'ո', '“'}
+{'ν', 'υ', 'і', 'е', 'ո', 'с', 'о', 'զ', 'р', 'ԁ', 'х', 'а', 'ј'}
 ```
 
 Of these characters, the following have analogous ascii characters
@@ -99,18 +96,103 @@ Of these characters, the following have analogous ascii characters
 ```json
 {
   "\u0440": "p",
-  "\u0430": "a",
-  "\u0578": "n",
-  "\u0501": "d",
-  "\u0458": "j",
-  "\u03bd": "v",
-  "\u043e": "o",
+  "\u03c5": "u",
+  "\u0445": "x",
   "\u0435": "e",
+  "\u043e": "o",
+  "\u03bd": "v",
+  "\u0458": "j",
+  "\u0578": "n",
   "\u0441": "c",
-  "\u0443": "y",
   "\u0456": "i",
-  "\u03c5": "u"
+  "\u0430": "a",
+  "\u0566": "q",
+  "\u0501": "d"
 }
 ```
+
+So, in order to decode the hidden message you need to 
+
+```py
+# The glyphs that you mapped in the previous step,
+# unicode on the left and ascii on the right.
+homoglyphs_reversed = {
+  'р': 'p', 
+  'υ': 'u',
+  'х': 'x',
+  'е': 'e',
+  'о': 'o',
+  'ν': 'v',
+  'ј': 'j',
+  'ո': 'n',
+  'с': 'c',
+  'і': 'i',
+  'а': 'a',
+  'զ': 'q',
+  'ԁ': 'd',
+}
+
+homoglpyh_ascii = set(homoglyphs_reversed.values())
+
+def bitlist_to_bytearray(bitlist):
+  if len(bitlist) % 8 != 0:
+    # Pad the bitlist with zeros to make its length a multiple of 8
+    bitlist = bitlist + [0] * (8 - len(bitlist) % 8)
+  
+  byte_array = bytearray()
+  for i in range(0, len(bitlist), 8):
+    byte = 0
+    for j in range(8):
+      byte = (byte << 1) | bitlist[i + j]
+    byte_array.append(byte)
+  return byte_array
+
+
+with open(file_path, "r") as f:
+
+  bits = []
+  while (char := f.read(1)):
+    if char in homoglpyh_ascii:
+      bits.append(0)
+    elif char in homoglyphs_reversed:
+      bits.append(1)
+
+  bytes = bitlist_to_bytearray(bits)
+  sys.stdout.buffer.write(bytes)
+  sys.stdout.buffer.flush()
+```
+
+
+If you run this through hexdump you will see the message
+
+
+```sh
+python3 decode.py | hexdump -C
+
+00000000  16 00 54 68 65 20 73 65  63 72 65 74 20 6d 65 73  |..The secret mes|
+00000010  73 61 67 65 20 69 73 3a  00 00 00 00 00 00 00 00  |sage is:........|
+00000020  00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00  |................|
+*
+000000c0  00 00 00 00 00 00 00 00  00 00 00 00 00 00 07 ff  |................|
+000000d0  80                                                |.|
+000000d1
+```
+
+There you can clearly see the secreet message.
+
+The first two bytes are a unsigned 16 bit integer which represents
+the message length. Using that you can extract the exact message.
+
+And there you have it! The secret message is: `The secret message is:`
+
+There are many ways you can use a similar technique to encode
+messages inside of text although they all have different
+drawbacks.
+
+In order for this encoding to be decodable reliably, I had to
+include that "latin alphabet" which is a pretty big hint,
+otherwise some messages wouldn't have all the unicode chars
+present and therefore you wouldn't be able to distinguish
+whether the ascii chars had a corresponding unicode char.
 
 {% end %}
