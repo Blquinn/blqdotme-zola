@@ -1,8 +1,4 @@
-<div class="plain-text-reader">
-  <textarea 
-    class="plain-text-reader" 
-    data-content-src="{{ get_url(path=path) }}"
-    readonly=true
-  ></textarea>
+<div class="plain-text-reader" data-content-src="{{ get_url(path=path) }}">
+  <textarea readonly=true></textarea>
   <a href="{{ get_url(path=path) }}" download="{{ file_name }}">download {{ file_name }}</a>
 </div>
