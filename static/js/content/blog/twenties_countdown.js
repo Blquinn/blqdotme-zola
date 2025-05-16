@@ -4,7 +4,8 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   let countDownDate = new Date("May 16, 2026 00:00:00").getTime();
 
-  let x = setInterval(() => {
+  // Returns `true` if there's still time remaining.
+  let setCount = () => {
     let now = new Date().getTime();
 
     // Find the distance between now and the count down date
@@ -18,9 +19,15 @@ document.addEventListener('DOMContentLoaded', async () => {
     countdownEl.innerHTML = days + "d " + hours + "h "
       + minutes + "m " + seconds + "s ";
 
-    if (distance < 0) {
+    return distance >= 0;
+  };
+
+  let x = setInterval(() => {
+    if (!setCount()) {
       clearInterval(x);
       countdownEl.innerHTML = "Over!!!";
     }
   }, 1000);
+
+  setCount();
 });
