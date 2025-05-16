@@ -100,7 +100,7 @@
         {% endif %}
         {% block css %}
         <link rel="stylesheet" href="{{ get_url(path='style.css', trailing_slash=false) | safe }}"/>
-        {% if page.extra.page_js %}
+        {% if page.extra.page_css %}
         {% for css_path in page.extra.page_css %}
         <link rel="stylesheet" href="{{ get_url(path=css_path, trailing_slash=false) | safe }}"/>
         {% endfor %}
